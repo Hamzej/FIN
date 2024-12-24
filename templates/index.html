@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compression d'Images</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-section {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+        .image-section img {
+            max-width: 300px;
+            max-height: 300px;
+            border-radius: 10px;
+        }
+        .image-info {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .info-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        .info-table td, .info-table th {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .info-table th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Compression d'Image avec Huffman</h1>
+        
+        <!-- Formulaire pour télécharger une image -->
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit" class="btn">Télécharger et Compresser l'Image</button>
+        </form>
+
+        {% if original_image_url %}
+        <div class="image-section">
+            <div>
+                <h3>Image Originale</h3>
+                <img src="{{ original_image_url }}" alt="Image Originale">
+                <div class="image-info">
+                    <p>Taille: {{ original_size }} Ko</p>
+                    <p>Dimensions: {{ original_width }} x {{ original_height }}</p>
+                    <p>Profondeur des couleurs: 8 bits</p>
+                    <p>Format: JPEG/PNG</p>
+                </div>
+            </div>
+
+            <div>
+                <h3>Image Compressée</h3>
+                <img src="{{ compressed_image_url }}" alt="Image Compressée">
+                <div class="image-info">
+                    <p>Taille: {{ compressed_size }} Ko</p>
+                    <p>Dimensions: {{ compressed_width }} x {{ compressed_height }}</p>
+                    <p>Profondeur des couleurs: 8 bits</p>
+                    <p>Format: JPEG</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tableau avec les informations -->
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Informations</th>
+                    <th>Image Originale</th>
+                    <th>Image Compressée</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Taille</td>
+                    <td>{{ original_size }} Ko</td>
+                    <td>{{ compressed_size }} Ko</td>
+                </tr>
+                <tr>
+                    <td>Dimensions</td>
+                    <td>{{ original_width }} x {{ original_height }}</td>
+                    <td>{{ compressed_width }} x {{ compressed_height }}</td>
+                </tr>
+                <tr>
+                    <td>Profondeur des Couleurs</td>
+                    <td>8 bits</td>
+                    <td>8 bits</td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td>JPEG/PNG</td>
+                    <td>JPEG</td>
+                </tr>
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>
