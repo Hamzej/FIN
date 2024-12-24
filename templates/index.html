@@ -24,6 +24,16 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        input[type="file"], select, button {
+            padding: 10px;
+            font-size: 16px;
+        }
         .image-section {
             display: flex;
             justify-content: space-around;
@@ -65,12 +75,20 @@
 </head>
 <body>
     <div class="container">
-        <h1>Compression d'Image avec Huffman</h1>
+        <h1>Compression d'Image</h1>
         
         <!-- Formulaire pour télécharger une image -->
         <form action="/upload" method="POST" enctype="multipart/form-data">
+            <label for="file">Téléchargez votre image :</label>
             <input type="file" name="file" required>
-            <button type="submit" class="btn">Télécharger et Compresser l'Image</button>
+
+            <label for="compression_type">Choisissez le type de compression :</label>
+            <select name="compression_type" required>
+                <option value="huffman">Huffman</option>
+                <option value="dct">DCT</option>
+            </select>
+
+            <button type="submit">Compresser l'image</button>
         </form>
 
         {% if original_image_url %}
@@ -127,6 +145,10 @@
                     <td>Format</td>
                     <td>JPEG/PNG</td>
                     <td>JPEG</td>
+                </tr>
+                <tr>
+                    <td>Ratio de Compression</td>
+                    <td colspan="2">{{ compression_ratio }} %</td>
                 </tr>
             </tbody>
         </table>
